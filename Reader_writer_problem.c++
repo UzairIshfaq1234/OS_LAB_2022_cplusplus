@@ -33,83 +33,117 @@ ret:
 
     cout << endl;
     // WRITERS----------------------------------------------------------------------------
-    if (choice == 1 && reader == 0 && rw_mutex == 0)
+    if (choice == 1)
     {
-        rw_mutex = wait(rw_mutex);
-        mutex = rw_mutex;
-        cout << "Writing" << rw_mutex << mutex << endl;
-        Sleep(1500);
-
-        goto ret;
-    }
-    else
-    {
-        if (reader == 0)
+        if (reader == 0 && rw_mutex == 0)
         {
-            cout << "A writer is doing his job!" << endl;
+            rw_mutex = wait(rw_mutex);
+            mutex = rw_mutex;
+            cout << "Writing" << rw_mutex << mutex << endl;
             Sleep(1500);
-            goto ret;
         }
 
         else
         {
-            cout << "A reader is doing his job!" << endl;
+            if (reader == 0)
+            {
+                cout << "A writer is doing his job!" << endl;
+                Sleep(1500);
+                goto ret;
+            }
+
+            else
+            {
+                cout << "A reader is doing his job!" << endl;
+                Sleep(1500);
+                goto ret;
+            }
+        }
+        goto ret;
+    }
+    // READERS----------------------------------------------------------------------------
+    else if (choice == 2)
+    {
+        if (mutex == 0)
+        {
+            mutex = wait(mutex);
+            reader_count++;
+
+            if (reader_count == 1)
+            {
+                rw_mutex = wait(rw_mutex);
+            }
+
+            cout << "A reader " << reader_count << " is reading!" << endl;
+
+            mutex = signal(mutex);
+            Sleep(1500);
+
+            goto ret;
+        }
+        else
+        {
+            if (rw_mutex == 1 && mutex == 1)
+            {
+
+                cout << "Writer is doing his job!" << endl;
+                Sleep(1500);
+                goto ret;
+            }
+            if (rw_mutex == 1 && mutex == 0)
+            {
+                cout << "Reader is doing his job!" << endl;
+                Sleep(1500);
+                goto ret;
+            }
+        }
+    }
+    // READERS----------------------------------------------------------------------------
+
+    else if (choice == 3)
+    {
+        if (rw_mutex == 1)
+        {
+            rw_mutex = signal(rw_mutex);
+            mutex = rw_mutex;
+            cout << "Writers are removed" << endl;
+            Sleep(1500);
+            goto ret;
+        }
+        else
+        {
+            cout << "Reader & Writer Locks are avalible" << endl;
+            Sleep(1500);
+            goto ret;
+        }
+    }
+    // READERS----------------------------------------------------------------------------
+
+    else if (choice == 4)
+    {
+
+        if (rw_mutex == 1)
+        {
+            rw_mutex = signal(rw_mutex);
+            mutex = rw_mutex;
+            reader_count = 0;
+            cout << "Readers are removed" << endl;
+            Sleep(1500);
+            goto ret;
+        }
+        else
+        {
+
+            cout << "Reader & Writer Locks are avalible" << endl;
             Sleep(1500);
             goto ret;
         }
     }
 
-    // READERS----------------------------------------------------------------------------
-    if (choice == 2 && mutex == 0)
-    {
-        mutex = wait(mutex);
-        reader_count++;
-
-        if (reader_count == 1)
-        {
-            rw_mutex = wait(rw_mutex);
-        }
-
-        cout << "A reader " << reader_count << " is reading!" << endl;
-
-        mutex = signal(mutex);
-        Sleep(1500);
-
-        goto ret;
-    }
     else
     {
-        cout << "Writer is doing his job!" << endl;
+        cout << "Incorrect Operation!" << endl;
         Sleep(1500);
         goto ret;
-    }
-
-    if (choice == 3 && rw_mutex == 1 && mutex == 1)
-    {
-
-        rw_mutex = signal(rw_mutex);
-        mutex = rw_mutex;
-        cout << "Writers are removed" << endl;
-        Sleep(1500);
-        goto ret;
-    }
-    else
-    {
-        cout << "Reader & Writer Locks are avalible" << endl;
-    }
-
-    if (choice == 4 && rw_mutex == 1 && mutex == 1)
-    {
-
-        rw_mutex = signal(rw_mutex);
-        mutex = rw_mutex;
-        reader_count = 0;
-        cout << "Readers are removed" << endl;
-        Sleep(1500);
-        goto ret;
-    }
-    else
-    {
-        cout << "Reader & Writer Locks are avalible" << endl;
     }
 }

@@ -82,5 +82,12 @@ int main()
     mutex=rw_mutex;
     }
 
+    if(choice==4 && mutex==0)
+    {
+
+    rw_mutex=signal(rw_mutex);
+    mutex=rw_mutex;
+    }
+
 
 }

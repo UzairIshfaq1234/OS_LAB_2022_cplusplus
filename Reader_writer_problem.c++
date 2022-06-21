@@ -16,6 +16,11 @@ int signal(int x)
     return x;
 }
 
+
+void writer()
+{
+    
+}
 int main()
 {
     int rw_mutex = 0;
@@ -35,7 +40,7 @@ ret:
     // WRITERS----------------------------------------------------------------------------
     if (choice == 1)
     {
-        if (reader == 0 && rw_mutex == 0)
+        if (reader_count == 0 && rw_mutex == 0)
         {
             rw_mutex = wait(rw_mutex);
             mutex = rw_mutex;
@@ -45,7 +50,7 @@ ret:
 
         else
         {
-            if (reader == 0)
+            if (reader_count == 0)
             {
                 cout << "A writer is doing his job!" << endl;
                 Sleep(1500);
@@ -83,19 +88,9 @@ ret:
         }
         else
         {
-            if (rw_mutex == 1 && mutex == 1)
-            {
-
-                cout << "Writer is doing his job!" << endl;
-                Sleep(1500);
-                goto ret;
-            }
-            if (rw_mutex == 1 && mutex == 0)
-            {
-                cout << "Reader is doing his job!" << endl;
-                Sleep(1500);
-                goto ret;
-            }
+            cout << "Writer is doing his job!" << endl;
+            Sleep(1500);
+            goto ret;
         }
     }
     // READERS----------------------------------------------------------------------------
@@ -122,7 +117,7 @@ ret:
     else if (choice == 4)
     {
 
-        if (rw_mutex == 1)
+        if (reader_count>0)
         {
             rw_mutex = signal(rw_mutex);
             mutex = rw_mutex;

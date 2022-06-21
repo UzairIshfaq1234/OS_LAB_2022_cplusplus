@@ -1,8 +1,6 @@
 #include <iostream>
-#include<stdlib.h> //clear screeen  	system ("CLS"); 		Sleep(1500);
-#include<windows.h> //slowdisplay      	system("Color 0A");
-
-
+#include <stdlib.h>  //clear screeen  	system ("CLS"); 		Sleep(1500);
+#include <windows.h> //slowdisplay      	system("Color 0A");
 
 using namespace std;
 
@@ -28,21 +26,26 @@ int main()
     int choice;
 
 ret:
+    system("CLS");
+    cout << endl;
     cout << "PRESS 1 TO WRITE\nPRESS 2 TO READ\nPRESS 3 TO REMOVE WRITER \nPRESS 4 TO REMOVE READERS" << endl;
     cin >> choice;
-	system ("CLS");
+
+    cout << endl;
     // WRITERS----------------------------------------------------------------------------
     if (choice == 1 && reader == 0 && rw_mutex == 0)
     {
         rw_mutex = wait(rw_mutex);
         mutex = rw_mutex;
         cout << "Writing" << endl;
+        Sleep(1500);
 
         goto ret;
     }
     else
     {
         cout << "A reader or writer is doing his job!" << endl;
+        Sleep(1500);
         goto ret;
     }
 
@@ -60,12 +63,14 @@ ret:
         cout << "A reader " << reader_count << " is reading!" << endl;
 
         mutex = signal(mutex);
+        Sleep(1500);
 
         goto ret;
     }
     else
     {
         cout << "Writer is doing his job!" << endl;
+        Sleep(1500);
         goto ret;
     }
 
@@ -74,6 +79,8 @@ ret:
 
         rw_mutex = signal(rw_mutex);
         mutex = rw_mutex;
+        cout << "Writers are removed" << endl;
+        Sleep(1500);
         goto ret;
     }
 
@@ -82,6 +89,8 @@ ret:
 
         rw_mutex = signal(rw_mutex);
         mutex = rw_mutex;
+        cout << "Readers are removed" << endl;
+        Sleep(1500);
         goto ret;
     }
 }

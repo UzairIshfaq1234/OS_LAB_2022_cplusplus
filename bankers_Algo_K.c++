@@ -98,7 +98,7 @@ bool isSafe(int processes[], int avail[], int maxm[][R],
     cout << "System is in safe state.\nSafe"
          " sequence is: ";
     for (int i = 0; i < P ; i++)
-        cout << safeSeq[i] << " ";
+        cout <<"P" <<safeSeq[i]<< " ";
   
     return true;
 }
@@ -113,16 +113,16 @@ int main()
   
     // Maximum R that can be allocated
     // to processes
-    int maxm[][R] = {{7, 5, 3},
-                     {3, 2, 2},
-                     {9, 0, 2},
-                     {2, 2, 2},
-                     {4, 3, 3}};
+    int maxm[][R] = {{7, 1, 8},
+                     {4, 4, 9},
+                     {9, 9, 2},
+                     {5, 7, 2},
+                     {4, 5, 3}};
   
     // Resources allocated to processes
     int allot[][R] = {{0, 1, 0},
-                      {2, 0, 0},
-                      {3, 0, 2},
+                      {0, 0, 0},
+                      {3, 0, 0},
                       {2, 1, 1},
                       {0, 0, 2}};
   

@@ -129,5 +129,5 @@ int main()
     // Check system is in safe state or not
     isSafe(processes, avail, maxm, allot);
   
-    return 0;
+        return 0;
 }
